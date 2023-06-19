@@ -1,0 +1,57 @@
+-- Create the Clients table
+CREATE TABLE Clients (
+  client_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create the Suppliers table
+CREATE TABLE Suppliers (
+  supplier_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create the Guards table
+CREATE TABLE Guards (
+  guard_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create the Payments table
+CREATE TABLE Payments (
+  payment_id INT PRIMARY KEY AUTO_INCREMENT,
+  payment_date DATE NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  client_id INT,
+  supplier_id INT,
+  guard_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (client_id) REFERENCES Clients(client_id),
+  FOREIGN KEY (supplier_id) REFERENCES Suppliers(supplier_id),
+  FOREIGN KEY (guard_id) REFERENCES Guards(guard_id)
+);
+
+-- Create the Attendance table
+CREATE TABLE Attendance (
+  attendance_id INT PRIMARY KEY AUTO_INCREMENT,
+  guard_id INT,
+  attendance_date DATE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (guard_id) REFERENCES Guards(guard_id)
+);
